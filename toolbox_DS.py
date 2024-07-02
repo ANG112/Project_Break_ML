@@ -312,50 +312,34 @@ def analisis_univariable_categoricas(df, features_cat):
 #####################################################################################################################
 
 def analisis_bivariable_categoricas_categorica(df, target, features_cat):
-    features_corr = []
-    features_no_corr = []
     for col in features_cat:
-        if col == target:
-            continue
         print(f'Análisis de {col} vs {target}')
         print('*' * 40)
 
-        # Visualización con histogramas agrupados y KDE
+        # Asegurarse de que las columnas son de tipo categórico
+        df[col] = df[col].astype('category')
+        df[target] = df[target].astype('category')
+
+        # Conteo de frecuencias conjuntas
+        freq_table = pd.crosstab(df[col], df[target])
+
+        # Se imprime el gráfico de barras
         fig, axes = plt.subplots(figsize=(10, 6))
-        sns.countplot(data=df, x=col, hue=target, ax=axes)
+        freq_table.plot(kind='bar', stacked=True, ax=axes)
         axes.set_title(f'Distribución de {col} agrupada por {target}')
         plt.xticks(rotation=45)
         plt.show()
 
-        # Tabla de contingencia con proporciones
-        tabla_contingencia = pd.crosstab(df[col], df[target], normalize='index').round(2)
-        print('Tabla de contingencia (proporciones):')
-        print(tabla_contingencia)
+        # Resumen de estadísticas categóricas
+        print(f'Tabla de contingencia de {col} vs {target}:')
+        print(freq_table)
         print()
 
-        # Prueba chi-cuadrado
-        tabla_contingencia_abs = pd.crosstab(df[col], df[target])
-        chi2, p, dof, ex = chi2_contingency(tabla_contingencia_abs)
-        print(f'Prueba Chi-cuadrado:')
-        print(f'Chi-cuadrado: {chi2:.2f}')
-        print(f'p-valor: {p:.3f}')
-        print(f'Grados de libertad: {dof}')
-        print()
-
-        if p < 0.05:
-            print(f'La variable {col} está significativamente asociada con {target} (p < 0.05). Podría ser útil para el modelo.')
-            features_corr.append(col)
-        else:
-            print(f'La variable {col} no está significativamente asociada con {target} (p >= 0.05).')
-            features_no_corr.append(col)
-        print()
-    print('Las features correlacionadas son:', features_corr)
-    print('Las features NO correlacionadas son:',features_no_corr)
 # Uso de la función
 # df = pd.read_csv('path_to_your_dataset.csv')
-# target = 'nombre_de_tu_variable_target'  # Tu variable objetivo
 # features_cat = ['feature1', 'feature2', 'feature3']  # Lista de tus variables categóricas
-# analisis_bivariable_categoricas(df, target, features_cat)
+# target = 'your_target_column'  # Tu variable objetivo categórica
+# analisis_bivariable_categoricas_categorica(df, features_cat, target)
 
 #####################################################################################################################
 
