@@ -323,7 +323,13 @@ def analisis_bivariable_categoricas_categorica(df, target, features_cat):
         # Conteo de frecuencias conjuntas
         freq_table = pd.crosstab(df[col], df[target])
 
-        # Se imprime el gráfico de barras
+        # Ordenar las filas de la tabla de frecuencias por el total
+        freq_table = freq_table.loc[freq_table.sum(axis=1).sort_values(ascending=False).index]
+
+        # Calcular los porcentajes respecto a la variable target
+        pct_table = freq_table.div(freq_table.sum(axis=0), axis=1) * 100
+
+        # Se imprime el gráfico de barras ordenado
         fig, axes = plt.subplots(figsize=(10, 6))
         freq_table.plot(kind='bar', stacked=True, ax=axes)
         axes.set_title(f'Distribución de {col} agrupada por {target}')
@@ -334,6 +340,24 @@ def analisis_bivariable_categoricas_categorica(df, target, features_cat):
         print(f'Tabla de contingencia de {col} vs {target}:')
         print(freq_table)
         print()
+
+        # Imprimir la tabla de porcentajes respecto al target
+        print(f'Tabla de porcentajes de {col} respecto a {target}:')
+        print(pct_table)
+        print()
+
+        # Calcular frecuencias absolutas y relativas
+        abs_freq = df[col].value_counts()
+        rel_freq = df[col].value_counts(normalize=True) * 100
+
+        # Crear un DataFrame con frecuencias absolutas y relativas
+        freq_df = pd.DataFrame({'Frecuencia Absoluta': abs_freq, 'Frecuencia Relativa (%)': rel_freq})
+
+        # Imprimir la tabla de frecuencias
+        print(f'Tabla de frecuencias para {col}:')
+        print(freq_df)
+        print()
+
 
 # Uso de la función
 # df = pd.read_csv('path_to_your_dataset.csv')
