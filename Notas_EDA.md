@@ -214,6 +214,11 @@ Documentación: Prepara una documentación detallada que explique el proceso de 
 
 
 
+RandonForest Amount
+Mejor modelo y parámetros: {'criterion': 'absolute_error', 'max_depth': 12, 'min_samples_leaf': 12, 'min_samples_split': 3, 'n_estimators': 100}
+Mejor resultado del recall para la clase positiva: -201.78001463155096
+
+
 
 
 
