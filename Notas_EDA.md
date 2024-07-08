@@ -193,10 +193,40 @@ Total_cmp vs Response, Total_%_cmp vs Response: (Una de las dos sobra.)
     - Distribuciones diferentes
     - pvalor de 0.00 (significativa) 
 
- 
+
+## Segmentación de clientes
+### Información personal sobre clientes ('mediana' de valores)
+| Num. Clúster| % Customers| Marital_Status| Education| Income| Kidhome| Teenhome| Household_members| Age|
+|:-:|:-:|:-:|:-:|:-:|:---:|:--:|:---:|:--:|
+|0| 31%| Married| Graduation| 75.276|0|0|2|46
+|1| 34%| Married| Graduation| 29.638|1|0|3|41
+|2| 35%|Married | Graduation| 52.332|0|1|3|48
+
+### Información sobre consumo de productos ('mediana' de valores)
+| Num. Clúster | Total_Amount | MntWines | MntFruits | MntMeatProducts | MntFishProducts | MntSweetProducts | MntGoldProds |
+|:------------:|:--------------:|:--------:|:---------:|:---------------:|:---------------:|:----------------:|:------------:|
+|      0       |     1.250      |   561    |    40     |       359       |        65       |        40        |      48      |
+|      1       |       57       |    14    |     3     |        14       |         4       |         3        |      10      |
+|      2       |      411       |   213    |     6     |        64       |         8       |         6        |      27      |
 
 
+### Información sobre hábitos de compra ('mediana' de valores)
 
+
+| Num. Clúster | Total_Purchase | Deals | Web | Catalog | Store | WebVisitsMonth |
+|:------------:|:--------------:|:-----:|:---:|:-------:|:-----:|:--------------:|
+|      0       |       20       |   1   |  5  |    5    |   8   |       3        |              |         |
+|      1       |       7        |   2   |  2  |    0    |   3   |       7        |              |         |
+|      2       |       16       |   2   |  4  |    2    |   5   |       6        |              |         |
+
+
+### Resumen de valores totales:
+
+| Num. Clúster| % Customer| Total_Amount| Total_Purchase| Median_amount_purchase| Recency|
+|:----------:|:----------:|:----------:|:------------:|:------------------:|:---------:|
+|0| 31%| 1.250|20| 64.74| 50|
+|1| 34% | 57|7|8.09|49|
+|2| 35%| 411|16|23.57|51|
 
 
 Perfil de Cluster: Crea perfiles detallados para cada cluster identificando las características comunes de los clientes dentro de cada grupo. Esto puede incluir la edad promedio, ingresos, comportamiento de compra, y cualquier otra métrica relevante que hayas utilizado para la segmentación.
